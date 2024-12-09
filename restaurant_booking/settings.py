@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
+if os.path.isfile('env.py'):
+    import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +29,8 @@ SECRET_KEY = 'django-insecure-&l#oxzmh3fa6_duyj&fioazms3rje&6x)aa_$9u+9m1l549i@=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-dmuresanu-restaurantboo-186kdk1wtpk.ws-eu117.gitpod.io']
+ALLOWED_HOSTS = ['8000-dmuresanu-restaurantboo-186kdk1wtpk.ws-eu117.gitpod.io',
+                 '.herokuapp.com']
 
 
 # Application definition
@@ -75,10 +80,7 @@ WSGI_APPLICATION = 'restaurant_booking.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 
